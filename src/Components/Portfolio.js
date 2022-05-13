@@ -41,7 +41,7 @@ export default function Portfolio()
             <p>{names.description}</p>
             <p><a href={names.html_url}>{names.html_url}</a></p>
             </>
-        ))};
+        ))}
       </main>
       </>
     )};

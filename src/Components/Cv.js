@@ -1,22 +1,23 @@
-export default function LoadCv(){
-fetch("./work.json")
-  .then(function (response) {
-    return response;
+
+ export default function LoadCv(){
+  fetch("./work.json", {
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    },
   })
-  .then(function (data) {
-    return data.json();
+  .then(response => response.json())
+  .then(data => {
+    let html='';
+    data.forEach(post => {
+      html += `
+        <li>${post.company} ${post.work} ${post.year}</li>
+      `;
+    });
+    document.getElementById('result').innerHTML = html;
   })
-  .then(function (Normal) {
-    const html = Normal.map(
-      (data) => `<div class="card"> 
-        <h4> ${data.year}</h4>
-        <h2> ${data.work}</</h2>
-        <h3> ${data.company}</h3>
-    </div>`
-    );
-    document.getElementById("appData").innerHTML = html;
-  })
-  .catch(function (err) {
-    console.log("Fetch problem show: " + err.message);
-  });
-}
+  };
+
+
+
+
