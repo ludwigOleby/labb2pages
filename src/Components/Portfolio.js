@@ -3,10 +3,13 @@ import {useState, useEffect} from "react";
 export default function Portfolio()
 {
     const [name, setName] = useState([]); //config
+    const [isPending, setIsPending] = useState(true);
     useEffect(()=>{
-        fetch('https://api.github.com/users/ludwigOleby/repos') //Fetch för att hämta info från git api
+        setTimeout(() =>{
+            fetch('https://api.github.com/users/ludwigOleby/repos') //Fetch för att hämta info från git api
         .then(res => res.json()) //tar hand om det fetchade materiaet
         .then(data => {
+            setIsPending(false);
             setName((prevname) =>[
                 ...prevname,
                 {
@@ -26,6 +29,7 @@ export default function Portfolio()
                 },
             ]);
         });
+        },1000 )
     },[]); // Array = kör bara en gång
 
 
@@ -33,6 +37,7 @@ export default function Portfolio()
       <>
       <main>
       <h2>Mina Github-repos</h2>
+      {isPending && <div>Loading....</div>}
         {name.map((names) =>(
             <>
             <h3>
